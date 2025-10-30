@@ -1,57 +1,56 @@
-Pecan Grove
+Pecan Portfolio — My Wealth Orchard
 
-A quiet corner of the internet where I plant financial seeds, track my pecan harvests (investments), and gather wisdom about markets, money, and compounding.
+A minimalist static personal finance site. Calm, long-term, and nature-themed. I plant financial pecans (investments) slowly and consistently, tending an orchard over years.
 
-Slow growth. Deep roots. Long horizons.
+Water your money tree weekly: invest, learn, review.
 
-## Project Structure
+## Tech
+- Tailwind CSS via CDN (no build step)
+- Pure static HTML pages
+- Markdown source notes under `src/content/` (optional reference)
+- Deployed on Netlify (publish dir: `src/`)
 
+## Structure
 ```
 src/
   index.html
-  styles/
-    main.css
   pages/
-    journey.html
-    research.html
-    resources.html
-  components/
-    header.html
-    footer.html
-  data/
-    pecan-log.json
+    portfolio.html
+    rules.html
+    library.html
+    market-notes.html
+    sandbox.html
+    tools.html
+    glossary.html
+    contact.html
+    weekly.html
+    about.html
+  content/
+    philosophy.md
+    library-phase1.md
+    library-phase2.md
+    library-phase3.md
+  styles/
+    main.css   # optional light custom touches (Tailwind is primary)
 ```
 
-Open `src/index.html` in a browser to view the site. Subpages are in `src/pages/`.
+Open `src/index.html` in a browser to view the site. Netlify reads `netlify.toml` and serves `src/` at the root.
 
-## Design Notes
+## Notes
+- Keep pages semantic and accessible
+- No emojis; clean, simple headings
+- No fancy JS; simple, clear, readable
 
-- Cozy, natural palette: parchment, pecan brown, muted green
-- Serif headers, clean sans body
-- Semantic HTML, no JavaScript yet
+## Netlify
+`netlify.toml` sets:
+```
+[build]
+  publish = "src"
+```
 
-## CLI Log Script (Concept)
-
-Goal: Append investing logs to `src/data/pecan-log.json` from the command line.
-
-Architecture outline (no code yet):
-- Accept CLI flags: `--date`, `--ticker`, `--amount`, `--type`, `--notes`
-- Parse inputs, validate types and presence
-- Read existing `pecan-log.json` (create if missing)
-- Append a normalized entry `{ date, ticker, amount, type, notes }`
-- Write back with pretty formatting
-- Print an inspirational pecan quote on success
-
-Potential enhancements:
-- Support `.env` for defaults
-- `--interactive` mode to prompt for fields
-- `--import` to batch-add from CSV
-
-## Deploying via GitHub Pages (Prep)
-
-- This repo includes meta tags and a favicon placeholder link in each page head
-- Option A: Serve from `/` (move `src/*` files to repo root)
-- Option B: Serve from `/docs` (move `src/*` into `docs/` and enable Pages on `docs/`)
-- Option C: Keep in `src/` and use a build/copy step in CI to publish
-
-Remember: If using project pages (username.github.io/repo), avoid absolute root paths.
+## Content Seed
+- Philosophy (hero): Growing Pecans
+- TLDR Library (Phase 1 → 3)
+- Portfolio Orchard allocations and approach
+- Weekly Money Watering Plan
+- Algo Sandbox reminder: strong roots first — signals later

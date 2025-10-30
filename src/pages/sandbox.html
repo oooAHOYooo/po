@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Algo Sandbox — ideas, paper trading, signals.">
+        <title>Algo Sandbox — Pecan Portfolio</title>
+        <link rel="icon" href="../favicon.ico">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../styles/main.css">
+    </head>
+    <body class="bg-amber-50 text-stone-800">
+        <header class="border-b border-stone-200 bg-amber-100/60">
+            <div
+                class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+                <a class="font-semibold text-stone-900 flex items-center gap-2"
+                    href="../index.html">
+                    <span>Pecan Portfolio — My Wealth Orchard</span>
+                </a>
+                <nav class="flex gap-4 text-sm" aria-label="Primary">
+                    <a class="hover:underline"
+                        href="portfolio.html">Portfolio</a>
+                    <a class="hover:underline" href="rules.html">Investment
+                        Rules</a>
+                    <a class="hover:underline" href="library.html">Library</a>
+                    <a class="hover:underline" href="market-notes.html">Market
+                        Notes</a>
+                    <a class="hover:underline" href="sandbox.html"
+                        aria-current="page">Algo Sandbox</a>
+                    <a class="hover:underline" href="tools.html">Tools</a>
+                    <a class="hover:underline" href="glossary.html">Glossary</a>
+                    <a class="hover:underline" href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 py-10">
+            <h1
+                class="text-2xl font-serif font-semibold mb-4 flex items-center gap-2">Algo
+                Sandbox</h1>
+
+            <div
+                class="rounded-xl border border-amber-300 bg-amber-100 p-4 text-amber-900 mb-6">
+                <strong>Reminder:</strong> Do not rush into algorithmic trading.
+                Strong roots first — signals later.
+            </div>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+                <h2 class="font-serif font-semibold mb-2">Ideas to explore
+                    later</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li>Trend-following with moving averages</li>
+                    <li>Mean reversion baskets</li>
+                    <li>Macro regime filters</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-2">Paper trading
+                    only</h2>
+                <p class="text-stone-700">Record ideas and results; no live
+                    capital until proven.</p>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-2">Risk & psychology</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li>Position sizing and drawdown tolerance</li>
+                    <li>Consistency over excitement</li>
+                    <li>Automation reduces emotional errors</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-2">Simple signals to
+                    track</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li>Moving averages (e.g., 50/200-day)</li>
+                    <li>RSI ranges</li>
+                    <li>Macro indicators (rates, inflation, spreads)</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-2">Learning
+                    resources</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li><a class="underline"
+                            href="https://www.quantconnect.com/" target="_blank"
+                            rel="noopener noreferrer">QuantConnect</a></li>
+                    <li><a class="underline" href="https://alpaca.markets/"
+                            target="_blank"
+                            rel="noopener noreferrer">Alpaca</a></li>
+                    <li><a class="underline" href="https://www.backtrader.com/"
+                            target="_blank"
+                            rel="noopener noreferrer">Backtrader</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="border-t border-stone-200 bg-amber-100/60">
+            <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-stone-700">
+                <p class="mb-2">Water your money tree: invest, learn,
+                    review.</p>
+                <p class="mb-2">Pecans take years; so does wealth.</p>
+                <p>© <span id="year"></span> Pecan Portfolio</p>
+            </div>
+        </footer>
+
+        <script>
+    (function(){
+      var el = document.getElementById('year');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+    </body>
+</html>

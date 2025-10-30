@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Learning Library — TLDR book notes by phase.">
+        <title>Library — Pecan Portfolio</title>
+        <link rel="icon" href="../favicon.ico">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../styles/main.css">
+    </head>
+    <body class="bg-amber-50 text-stone-800">
+        <header class="border-b border-stone-200 bg-amber-100/60">
+            <div
+                class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+                <a class="font-semibold text-stone-900 flex items-center gap-2"
+                    href="../index.html">
+                    <span>Pecan Portfolio — My Wealth Orchard</span>
+                </a>
+                <nav class="flex gap-4 text-sm" aria-label="Primary">
+                    <a class="hover:underline"
+                        href="portfolio.html">Portfolio</a>
+                    <a class="hover:underline" href="rules.html">Investment
+                        Rules</a>
+                    <a class="hover:underline" href="library.html"
+                        aria-current="page">Library</a>
+                    <a class="hover:underline" href="market-notes.html">Market
+                        Notes</a>
+                    <a class="hover:underline" href="sandbox.html">Algo
+                        Sandbox</a>
+                    <a class="hover:underline" href="tools.html">Tools</a>
+                    <a class="hover:underline" href="glossary.html">Glossary</a>
+                    <a class="hover:underline" href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 py-10">
+            <h1
+                class="text-2xl font-serif font-semibold mb-6 flex items-center gap-2">Learning
+                Library</h1>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+                <h2 class="font-serif font-semibold mb-3">Phase 1</h2>
+                <ul class="space-y-2">
+                    <li><strong>The Simple Path to Wealth</strong> — index &
+                        chill, low fees, stay the course</li>
+                    <li><strong>Psychology of Money</strong> — behavior >
+                        intelligence, humility, time horizons</li>
+                    <li><strong>Random Walk Down Wall Street</strong> — markets
+                        unpredictable, indexing powerful</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-3">Phase 2</h2>
+                <ul class="space-y-2">
+                    <li><strong>Common Sense on Mutual Funds</strong> — costs
+                        matter, risk discipline</li>
+                    <li><strong>One Up On Wall Street</strong> — invest in what
+                        you understand, real world > headlines</li>
+                    <li><strong>Mastering the Market Cycle</strong> — cycles
+                        exist, emotions amplify trends, stay rational</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-3">Phase 3</h2>
+                <ul class="space-y-2">
+                    <li><strong>Quantitative Trading</strong> — start simple,
+                        trade rules not emotion</li>
+                    <li><strong>Advances in Financial ML</strong> — cutting
+                        edge/advanced, later milestone</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="border-t border-stone-200 bg-amber-100/60">
+            <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-stone-700">
+                <p class="mb-2">Water your money tree: invest, learn,
+                    review.</p>
+                <p class="mb-2">Pecans take years; so does wealth.</p>
+                <p>© <span id="year"></span> Pecan Portfolio</p>
+            </div>
+        </footer>
+
+        <script>
+    (function(){
+      var el = document.getElementById('year');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+    </body>
+</html>

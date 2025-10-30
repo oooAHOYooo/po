@@ -1,76 +1,127 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pecan Grove — Plant. Grow. Harvest. A personal finance research garden.">
-  <meta name="theme-color" content="#8b5e3c">
-  <title>Pecan Grove — Plant. Grow. Harvest.</title>
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles/main.css">
-</head>
-<body class="bg-parchment text-brown-900">
-  <header class="site-header">
-    <div class="container flex items-center justify-between py-4">
-      <a class="brand flex items-center gap-2" href="index.html" aria-label="Go to homepage">
-        <span class="logo" aria-hidden="true">🌰</span>
-        <span class="brand-title">Pecan Grove</span>
-      </a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="pages/journey.html">Journey</a>
-        <a href="pages/research.html">Research</a>
-        <a href="pages/resources.html">Resources</a>
-      </nav>
-    </div>
-    <p class="container tagline text-brown-700">Growing slow wealth</p>
-  </header>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+      content="Pecan Portfolio — My Wealth Orchard. Calm, long-term investing.">
+    <title>Pecan Portfolio — My Wealth Orchard</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body class="bg-amber-50 text-stone-800">
+    <header class="border-b border-stone-200 bg-amber-100/60">
+      <div
+        class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a class="font-semibold text-stone-900 flex items-center gap-2"
+          href="index.html">
+          <span>Pecan Portfolio — My Wealth Orchard</span>
+        </a>
+        <nav class="flex gap-4 text-sm" aria-label="Primary">
+          <a class="hover:underline" href="pages/portfolio.html">Portfolio</a>
+          <a class="hover:underline" href="pages/rules.html">Investment
+            Rules</a>
+          <a class="hover:underline" href="pages/library.html">Library</a>
+          <a class="hover:underline" href="pages/market-notes.html">Market
+            Notes</a>
+          <a class="hover:underline" href="pages/sandbox.html">Algo Sandbox</a>
+          <a class="hover:underline" href="pages/tools.html">Tools</a>
+          <a class="hover:underline" href="pages/glossary.html">Glossary</a>
+          <a class="hover:underline" href="pages/contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-  <main class="container prose py-8">
-    <section class="card">
-      <h1 class="mt-0">Pecan Grove</h1>
-      <p class="text-brown-700">Plant. Grow. Harvest.</p>
-      <p>
-        In this grove, money is like pecans: small kernels planted over seasons, tended with patience,
-        and harvested only after roots run deep. Slow compounding, steady weathering—no rushing the tree.
-      </p>
-      <pre class="ascii-leaves" aria-hidden="true">
-         _/\\_     _/\\_      _/\\_
-        ( o  )   (  o )    (  o )  ~
-         \\__/     \\__/      \\__/
-      </pre>
-    </section>
+    <main class="max-w-4xl mx-auto px-4 py-10">
+      <section
+        class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+        <h1
+          class="text-3xl font-serif font-semibold mb-2 flex items-center gap-2">Growing
+          Pecans</h1>
+        <p class="text-stone-700 mb-4">Calm, long-term, playful humility.</p>
+        <div class="prose prose-stone max-w-none">
+          <p>
+            I invest in broad index funds (VTI, FXAIX), global (VXUS), dividend
+            stability (SDY), bonds (BND),
+            commodities (IAU/SLV/XME), real estate (VNQ), and an innovation tilt
+            (QQQM, NVDA, MSFT).
+          </p>
+          <ul>
+            <li>I invest daily/weekly in small amounts</li>
+            <li>This portfolio models patience over prediction</li>
+            <li>Pecans = investments that mature slowly, compounding over
+              years</li>
+            <li>Innovation + defense (AI + commodities) for balance</li>
+            <li>No hype, no panic</li>
+            <li>Research-driven; future: algorithmic trading after mastering
+              fundamentals</li>
+          </ul>
+          <blockquote>
+            “Small deposits, big orchards. Wealth grows like pecans — slow,
+            quiet, inevitable.”
+          </blockquote>
+        </div>
+      </section>
 
-    <section class="card mt-8">
-      <h2 class="mt-0">Explore the Grove</h2>
-      <ul class="link-list">
-        <li><a class="link" href="pages/journey.html"><span class="pecan">🌰</span> Journey</a> — log of daily kernels and orchard entries</li>
-        <li><a class="link" href="pages/research.html"><span class="leaf">🍃</span> Research</a> — my learning garden and notes</li>
-        <li><a class="link" href="pages/resources.html"><span class="leaf">🍂</span> Resources</a> — books, tools, and glossary</li>
-      </ul>
-    </section>
+      <section class="grid md:grid-cols-2 gap-4 mt-8">
+        <a href="pages/portfolio.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Portfolio Orchard</h2>
+          <p class="text-sm text-stone-600">Manual snapshot of allocations</p>
+        </a>
+        <a href="pages/rules.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Investment Rules</h2>
+          <p class="text-sm text-stone-600">DCA, core ETFs, long-term, low
+            cost</p>
+        </a>
+        <a href="pages/library.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Learning Library</h2>
+          <p class="text-sm text-stone-600">Punchy TLDRs by phase</p>
+        </a>
+        <a href="pages/market-notes.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Market Notes</h2>
+          <p class="text-sm text-stone-600">Macro cycles and themes</p>
+        </a>
+        <a href="pages/sandbox.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Algo Sandbox</h2>
+          <p class="text-sm text-stone-600">Ideas and paper trading only</p>
+        </a>
+        <a href="pages/tools.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Tools & Templates</h2>
+          <p class="text-sm text-stone-600">Sheets and helpful links</p>
+        </a>
+        <a href="pages/glossary.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Glossary</h2>
+          <p class="text-sm text-stone-600">Simple explainers</p>
+        </a>
+        <a href="pages/weekly.html"
+          class="rounded-lg border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition">
+          <h2 class="font-serif font-semibold">Weekly Plan</h2>
+          <p class="text-sm text-stone-600">Money watering ritual</p>
+        </a>
+      </section>
+    </main>
 
-    <section class="callout mt-8">
-      <p>This is a personal finance research garden—quiet, steady, and curious.</p>
-    </section>
-  </main>
+    <footer class="border-t border-stone-200 bg-amber-100/60">
+      <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-stone-700">
+        <p class="mb-2">Water your money tree: invest, learn, review.</p>
+        <p class="mb-2">Pecans take years; so does wealth.</p>
+        <p>© <span id="year"></span> Pecan Portfolio</p>
+      </div>
+    </footer>
 
-  <footer class="site-footer">
-    <div class="container py-6">
-      <p class="mb-2">Slow money is strong money.</p>
-      <p class="mb-2">Pecans take years; so does wealth.</p>
-      <p>
-        <a href="https://github.com/yourname/pecan-grove" target="_blank" rel="noopener noreferrer">GitHub repo</a>
-      </p>
-      <p class="fineprint">© <span id="year"></span> Pecan Grove</p>
-    </div>
-  </footer>
-
-  <!-- No JS yet; inline year fallback -->
-  <script>
+    <script>
     (function(){
       var el = document.getElementById('year');
       if (el) el.textContent = new Date().getFullYear();
     })();
   </script>
-</body>
+  </body>
 </html>

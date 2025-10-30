@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Tools & Templates — sheets and useful links.">
+        <title>Tools & Templates — Pecan Portfolio</title>
+        <link rel="icon" href="../favicon.ico">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../styles/main.css">
+    </head>
+    <body class="bg-amber-50 text-stone-800">
+        <header class="border-b border-stone-200 bg-amber-100/60">
+            <div
+                class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+                <a class="font-semibold text-stone-900 flex items-center gap-2"
+                    href="../index.html">
+                    <span>Pecan Portfolio — My Wealth Orchard</span>
+                </a>
+                <nav class="flex gap-4 text-sm" aria-label="Primary">
+                    <a class="hover:underline"
+                        href="portfolio.html">Portfolio</a>
+                    <a class="hover:underline" href="rules.html">Investment
+                        Rules</a>
+                    <a class="hover:underline" href="library.html">Library</a>
+                    <a class="hover:underline" href="market-notes.html">Market
+                        Notes</a>
+                    <a class="hover:underline" href="sandbox.html">Algo
+                        Sandbox</a>
+                    <a class="hover:underline" href="tools.html"
+                        aria-current="page">Tools</a>
+                    <a class="hover:underline" href="glossary.html">Glossary</a>
+                    <a class="hover:underline" href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 py-10">
+            <h1
+                class="text-2xl font-serif font-semibold mb-4 flex items-center gap-2">Tools
+                & Templates</h1>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+                <h2 class="font-serif font-semibold mb-2">Tracking
+                    spreadsheets</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li>Monthly budget + savings rate (placeholder link)</li>
+                    <li>DCA log and allocations (placeholder link)</li>
+                    <li>Dividend and income tracker (placeholder link)</li>
+                </ul>
+            </section>
+
+            <section
+                class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mt-6">
+                <h2 class="font-serif font-semibold mb-2">Brokerages &
+                    tools</h2>
+                <ul class="list-disc pl-6 text-stone-700 space-y-1">
+                    <li>Fidelity</li>
+                    <li>Yahoo Finance</li>
+                    <li>TradingView</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="border-t border-stone-200 bg-amber-100/60">
+            <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-stone-700">
+                <p class="mb-2">Water your money tree: invest, learn,
+                    review.</p>
+                <p class="mb-2">Pecans take years; so does wealth.</p>
+                <p>© <span id="year"></span> Pecan Portfolio</p>
+            </div>
+        </footer>
+
+        <script>
+    (function(){
+      var el = document.getElementById('year');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+    </body>
+</html>
