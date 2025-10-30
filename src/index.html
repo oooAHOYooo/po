@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pecan Grove — Plant. Grow. Harvest. A personal finance research garden.">
+  <meta name="theme-color" content="#8b5e3c">
+  <title>Pecan Grove — Plant. Grow. Harvest.</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-parchment text-brown-900">
+  <header class="site-header">
+    <div class="container flex items-center justify-between py-4">
+      <a class="brand flex items-center gap-2" href="index.html" aria-label="Go to homepage">
+        <span class="logo" aria-hidden="true">🌰</span>
+        <span class="brand-title">Pecan Grove</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="pages/journey.html">Journey</a>
+        <a href="pages/research.html">Research</a>
+        <a href="pages/resources.html">Resources</a>
+      </nav>
+    </div>
+    <p class="container tagline text-brown-700">Growing slow wealth</p>
+  </header>
+
+  <main class="container prose py-8">
+    <section class="card">
+      <h1 class="mt-0">Pecan Grove</h1>
+      <p class="text-brown-700">Plant. Grow. Harvest.</p>
+      <p>
+        In this grove, money is like pecans: small kernels planted over seasons, tended with patience,
+        and harvested only after roots run deep. Slow compounding, steady weathering—no rushing the tree.
+      </p>
+      <pre class="ascii-leaves" aria-hidden="true">
+         _/\\_     _/\\_      _/\\_
+        ( o  )   (  o )    (  o )  ~
+         \\__/     \\__/      \\__/
+      </pre>
+    </section>
+
+    <section class="card mt-8">
+      <h2 class="mt-0">Explore the Grove</h2>
+      <ul class="link-list">
+        <li><a class="link" href="pages/journey.html"><span class="pecan">🌰</span> Journey</a> — log of daily kernels and orchard entries</li>
+        <li><a class="link" href="pages/research.html"><span class="leaf">🍃</span> Research</a> — my learning garden and notes</li>
+        <li><a class="link" href="pages/resources.html"><span class="leaf">🍂</span> Resources</a> — books, tools, and glossary</li>
+      </ul>
+    </section>
+
+    <section class="callout mt-8">
+      <p>This is a personal finance research garden—quiet, steady, and curious.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container py-6">
+      <p class="mb-2">Slow money is strong money.</p>
+      <p class="mb-2">Pecans take years; so does wealth.</p>
+      <p>
+        <a href="https://github.com/yourname/pecan-grove" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+      </p>
+      <p class="fineprint">© <span id="year"></span> Pecan Grove</p>
+    </div>
+  </footer>
+
+  <!-- No JS yet; inline year fallback -->
+  <script>
+    (function(){
+      var el = document.getElementById('year');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
