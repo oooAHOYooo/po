@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Compound Growth & Daily Investing (DCA) Calculator.">
+        <title>Compound Growth & DCA Calculator — Pecan Portfolio</title>
+        <link rel="icon" href="../favicon.ico">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../styles/main.css">
+    </head>
+    <body class="bg-amber-50 text-stone-800">
+        <header class="border-b border-stone-200 bg-amber-100/60">
+            <div
+                class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+                <a class="font-semibold text-stone-900 flex items-center gap-2"
+                    href="../index.html">
+                    <span>Pecan Portfolio — My Wealth Orchard</span>
+                </a>
+                <div class="flex items-center gap-2 relative">
+                    <button id="menu-button" aria-controls="primary-nav" aria-expanded="false"
+                        class="rounded-md border border-stone-300 bg-white text-stone-800 hover:bg-stone-50 p-2 shadow-sm flex items-center" aria-label="Open menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="ml-2 hidden sm:inline text-sm">Menu</span>
+                    </button>
+                    <nav id="primary-nav" class="hidden absolute right-0 top-full mt-2 w-64 rounded-md border border-stone-200 bg-white shadow-lg p-2 z-50" aria-label="Primary">
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="portfolio.html">Portfolio</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="rules.html">Investment Rules</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="library.html">Library</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="market-notes.html">Market Notes</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="sandbox.html">Algo Sandbox</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="tools.html">Tools</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="glossary.html">Glossary</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="calculator.html" aria-current="page">Calculator</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 py-10">
+            <h1
+                class="text-3xl font-serif font-semibold mb-2 flex items-center gap-2">Compound Growth & Daily Investing Calculator</h1>
+            <p class="text-stone-700 mb-6 max-w-2xl">
+                Estimate how steady daily investing (DCA) compounds over time. Enter your daily contribution,
+                an assumed annual return, and your time horizon to see projected growth.
+            </p>
+
+            <section class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mb-6">
+                <form id="calc-form" class="grid gap-4 sm:grid-cols-3">
+                    <label class="block">
+                        <span class="block text-sm text-stone-700 mb-1">Daily contribution ($)</span>
+                        <input id="daily" type="number" min="0" step="1" value="10" class="w-full rounded-md border border-stone-300 px-3 py-2" />
+                    </label>
+                    <label class="block">
+                        <span class="block text-sm text-stone-700 mb-1">Annual return (%)</span>
+                        <input id="annual" type="number" min="0" step="0.1" value="7" class="w-full rounded-md border border-stone-300 px-3 py-2" />
+                    </label>
+                    <label class="block">
+                        <span class="block text-sm text-stone-700 mb-1">Years investing</span>
+                        <input id="years" type="number" min="1" step="1" value="20" class="w-full rounded-md border border-stone-300 px-3 py-2" />
+                    </label>
+                    <div class="sm:col-span-3">
+                        <button type="submit" class="rounded-md bg-green-700 text-white px-4 py-2 hover:bg-green-600">Calculate</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="grid gap-6 md:grid-cols-2">
+                <div class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+                    <h2 class="font-serif font-semibold mb-3">Results</h2>
+                    <dl class="grid grid-cols-2 gap-y-2 text-sm">
+                        <dt class="text-stone-600">Total contributions</dt>
+                        <dd id="out-contrib" class="text-stone-900 font-medium">$0</dd>
+                        <dt class="text-stone-600">Projected balance</dt>
+                        <dd id="out-balance" class="text-stone-900 font-medium">$0</dd>
+                        <dt class="text-stone-600">Total growth</dt>
+                        <dd id="out-growth" class="text-stone-900 font-medium">$0</dd>
+                    </dl>
+                </div>
+                <div class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+                    <h2 class="font-serif font-semibold mb-3">Projected Growth</h2>
+                    <div class="h-64">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="border-t border-stone-200 bg-amber-100/60 mt-10">
+            <div class="max-w-4xl mx-auto px-4 py-8 text-sm text-stone-700">
+                <p class="mb-2">Water your money tree: invest, learn, review.</p>
+                <p class="mb-2">Pecans take years; so does wealth.</p>
+                <p>© <span id="year"></span> Pecan Portfolio</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+    (function(){
+      var el = document.getElementById('year');
+      if (el) el.textContent = new Date().getFullYear();
+
+      var btn = document.getElementById('menu-button');
+      var nav = document.getElementById('primary-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', function(){
+          var hidden = nav.classList.contains('hidden');
+          if (hidden) {
+            nav.classList.remove('hidden');
+            btn.setAttribute('aria-expanded', 'true');
+          } else {
+            nav.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      var fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      var form = document.getElementById('calc-form');
+      var outContrib = document.getElementById('out-contrib');
+      var outBalance = document.getElementById('out-balance');
+      var outGrowth = document.getElementById('out-growth');
+      var ctx = document.getElementById('growthChart').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: [], datasets: [
+          { label: 'Balance', data: [], borderColor: '#466a57', backgroundColor: 'rgba(70,106,87,0.15)', fill: true, tension: 0.2 },
+          { label: 'Contributions', data: [], borderColor: '#8b5e3c', backgroundColor: 'rgba(139,94,60,0.1)', fill: false, borderDash: [6,4], tension: 0.2 }
+        ]},
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: true } },
+          scales: { x: { display: false }, y: { ticks: { callback: function(v){ return '$' + Math.round(v).toLocaleString(); } } } }
+        }
+      });
+
+      function computeSeries(daily, annualPct, years){
+        var months = Math.max(1, Math.round(years * 12));
+        var monthlyRate = Math.pow(1 + (annualPct/100), 1/12) - 1;
+        var monthlyContribution = daily * (365.25/12);
+        var labels = [];
+        var balanceSeries = [];
+        var contribSeries = [];
+        var balance = 0;
+        var totalContrib = 0;
+        for (var m = 1; m <= months; m++){
+          balance = balance * (1 + monthlyRate) + monthlyContribution;
+          totalContrib += monthlyContribution;
+          balanceSeries.push(balance);
+          contribSeries.push(totalContrib);
+          labels.push('Month ' + m);
+        }
+        return { labels: labels, balanceSeries: balanceSeries, contribSeries: contribSeries, totalContrib: totalContrib, balance: balance };
+      }
+
+      function render(daily, annual, years){
+        var result = computeSeries(daily, annual, years);
+        chart.data.labels = result.labels;
+        chart.data.datasets[0].data = result.balanceSeries;
+        chart.data.datasets[1].data = result.contribSeries;
+        chart.update('none');
+
+        outContrib.textContent = fmt.format(result.totalContrib);
+        outBalance.textContent = fmt.format(result.balance);
+        outGrowth.textContent = fmt.format(result.balance - result.totalContrib);
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var daily = parseFloat(document.getElementById('daily').value || '0');
+        var annual = parseFloat(document.getElementById('annual').value || '0');
+        var years = parseFloat(document.getElementById('years').value || '0');
+        if (daily < 0 || annual < 0 || years <= 0) return;
+        render(daily, annual, years);
+      });
+
+      // Initial render with defaults
+      render(10, 7, 20);
+    })();
+  </script>
+    </body>
+</html>
+
+

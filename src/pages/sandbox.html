@@ -18,20 +18,29 @@
                     href="../index.html">
                     <span>Pecan Portfolio — My Wealth Orchard</span>
                 </a>
-                <nav class="flex gap-4 text-sm" aria-label="Primary">
-                    <a class="hover:underline"
-                        href="portfolio.html">Portfolio</a>
-                    <a class="hover:underline" href="rules.html">Investment
-                        Rules</a>
-                    <a class="hover:underline" href="library.html">Library</a>
-                    <a class="hover:underline" href="market-notes.html">Market
-                        Notes</a>
-                    <a class="hover:underline" href="sandbox.html"
-                        aria-current="page">Algo Sandbox</a>
-                    <a class="hover:underline" href="tools.html">Tools</a>
-                    <a class="hover:underline" href="glossary.html">Glossary</a>
-                    <a class="hover:underline" href="contact.html">Contact</a>
-                </nav>
+                <div class="flex items-center gap-2 relative">
+                    <button id="menu-button" aria-controls="primary-nav" aria-expanded="false"
+                        class="rounded-md border border-stone-300 bg-white text-stone-800 hover:bg-stone-50 p-2 shadow-sm flex items-center" aria-label="Open menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="ml-2 hidden sm:inline text-sm">Menu</span>
+                    </button>
+                    <nav id="primary-nav" class="hidden absolute right-0 top-full mt-2 w-64 rounded-md border border-stone-200 bg-white shadow-lg p-2 z-50" aria-label="Primary">
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100"
+                            href="portfolio.html">Portfolio</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="rules.html">Investment
+                            Rules</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="library.html">Library</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="market-notes.html">Market
+                            Notes</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="sandbox.html"
+                            aria-current="page">Algo Sandbox</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="tools.html">Tools</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="glossary.html">Glossary</a>
+                        <a class="block rounded px-3 py-2 hover:bg-stone-100" href="calculator.html">Calculator</a>
+                    </nav>
+                </div>
             </div>
         </header>
 
@@ -117,6 +126,21 @@
     (function(){
       var el = document.getElementById('year');
       if (el) el.textContent = new Date().getFullYear();
+
+      var btn = document.getElementById('menu-button');
+      var nav = document.getElementById('primary-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', function(){
+          var hidden = nav.classList.contains('hidden');
+          if (hidden) {
+            nav.classList.remove('hidden');
+            btn.setAttribute('aria-expanded', 'true');
+          } else {
+            nav.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
     })();
   </script>
     </body>
