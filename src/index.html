@@ -19,6 +19,11 @@
           <span>Pecan Portfolio — My Wealth Orchard</span>
         </a>
         <div class="flex items-center gap-2 relative">
+          <a href="index.html#game"
+            class="rounded-md border border-stone-300 bg-amber-200 hover:bg-amber-300 text-stone-900 px-3 py-2 shadow-sm"
+            aria-label="Start Game">
+            Start Game
+          </a>
           <button id="menu-button" aria-controls="primary-nav"
             aria-expanded="false"
             class="rounded-md border border-stone-300 bg-white text-stone-800 hover:bg-stone-50 p-2 shadow-sm flex items-center"
@@ -33,6 +38,8 @@
           <nav id="primary-nav"
             class="hidden absolute right-0 top-full mt-2 w-64 rounded-md border border-stone-200 bg-white shadow-lg p-2 z-50"
             aria-label="Primary">
+            <a class="block rounded px-3 py-2 hover:bg-stone-100"
+              href="index.html#game">Start Game</a>
             <a class="block rounded px-3 py-2 hover:bg-stone-100"
               href="pages/portfolio.html">Portfolio</a>
             <a class="block rounded px-3 py-2 hover:bg-stone-100"
@@ -57,6 +64,18 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-10">
+      <section class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm mb-8">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <h2 class="text-3xl font-serif font-semibold mb-2">Capital: Legends of Portfolio</h2>
+            <p class="text-stone-700">A picturebook adventure in long-term investing.</p>
+          </div>
+          <button id="start-book-btn" class="rounded-lg border border-stone-300 bg-amber-100 hover:bg-amber-200 text-stone-900 px-5 py-3 shadow-sm font-semibold">
+            Start Game
+          </button>
+        </div>
+      </section>
+
       <section
         class="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
         <h1
@@ -272,6 +291,24 @@
       </div>
     </footer>
 
+    <!-- Book Overlay -->
+    <div id="book-overlay" class="fixed inset-0 hidden z-50 book-overlay">
+      <div id="book-stage" class="book-stage">
+        <div id="book-left" class="book-page"></div>
+        <div id="book-right" class="book-page"></div>
+      </div>
+      <div id="book-controls" class="book-controls">
+        <button id="book-close" class="rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 px-3 py-2 shadow-sm">Close</button>
+        <div id="book-indicator" class="text-stone-700 text-sm"></div>
+        <div class="flex items-center gap-2">
+          <button id="book-prev-act" class="rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 px-3 py-2 shadow-sm disabled:opacity-50" disabled>Prev Act</button>
+          <button id="book-prev" class="rounded-md border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 px-3 py-2 shadow-sm disabled:opacity-50" disabled>Back</button>
+          <button id="book-next" class="rounded-md border border-stone-300 bg-amber-200 hover:bg-amber-300 text-stone-900 px-3 py-2 shadow-sm">Next</button>
+          <button id="book-next-act" class="rounded-md border border-stone-300 bg-amber-200 hover:bg-amber-300 text-stone-900 px-3 py-2 shadow-sm">Next Act</button>
+        </div>
+      </div>
+    </div>
+
     <script>
     (function(){
       var el = document.getElementById('year');
@@ -291,6 +328,270 @@
           }
         });
       }
+
+      // Book widget
+      var startBtn = document.getElementById('start-book-btn');
+      var overlay = document.getElementById('book-overlay');
+      var leftPage = document.getElementById('book-left');
+      var rightPage = document.getElementById('book-right');
+      var prevBtn = document.getElementById('book-prev');
+      var nextBtn = document.getElementById('book-next');
+      var closeBtn = document.getElementById('book-close');
+      var indicator = document.getElementById('book-indicator');
+      var prevActBtn = document.getElementById('book-prev-act');
+      var nextActBtn = document.getElementById('book-next-act');
+      var active = false;
+      var i = 0;
+
+      var spreads = [
+        [
+          '<div class="h-full flex flex-col items-center justify-center text-center p-6"><h2 class="text-3xl font-serif font-semibold mb-2">Capital: Legends of Portfolio</h2><p class="text-stone-700">A picturebook adventure in long-term investing.</p></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif font-semibold mt-0">ACT I — THE CORE HEROES OF THE KINGDOM</h3><p class="text-stone-700">Meet the dependable champions that build wealth over decades.</p></div>'
+        ],
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🛡️ 1. VTI — “The All-American Warrior”</h3><p><strong>Role</strong>: Balanced champion of the entire U.S. economy</p><p><strong>Domain</strong>: All industries, all sizes</p><p><strong>Backstory</strong>: Trained in every corner of the kingdom, VTI is loyal, dependable, and always growing over time.</p><h4 class="mt-4 text-brown-700">Personality</h4><p>Calm, steady, unstoppable. If the U.S. thrives — VTI thrives.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Fights in every economic battle</li><li>Rarely fails</li><li>Long-term compounding legend</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Doesn’t specialize</li><li>Never the flashiest</li></ul><blockquote class="mt-4">“My king, I bring strength from every village and city in the realm.”</blockquote></div>',
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">⚔️ 2. FXAIX — “The Elite Knight of the 500”</h3><p><strong>Role</strong>: Pure S&amp;P 500 master</p><p><strong>Domain</strong>: The 500 strongest houses in the kingdom</p><p><strong>Backstory</strong>: A disciplined knight trained in the fortresses of the largest U.S. companies.</p><h4 class="mt-4 text-brown-700">Personality</h4><p>Focused, elite, precise. FXAIX never wastes effort.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>High performance</li><li>Ultra lean (low fees)</li><li>A disciplined version of VTI</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Only fights with the biggest houses</li><li>Ignores the little guys</li></ul><blockquote class="mt-4">“I fight only with the strongest 500 warriors in the land.”</blockquote></div>'
+        ],
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">💡 3. QQQM / QQQ — “The Tech Sorcerers”</h3><p><strong>Role</strong>: Innovation, magic, creativity, future</p><p><strong>Domain</strong>: Silicon Valley, AI towers, biotech labs</p><p><strong>Backstory</strong>: The two sorcerers came from the mystical Nasdaq Mountains, wielding the magic of technology.</p><h4 class="mt-4 text-brown-700">Personality</h4><p>Brilliant, temperamental, unpredictable. When they succeed — kingdoms rise.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Explosive power</li><li>Masters of innovation</li><li>Dominant in the modern world</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Can panic easily</li><li>Highly emotional during storms</li></ul><blockquote class="mt-4">“We hold the secrets of AI, chips, and invention.”</blockquote></div>',
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">⚡ 4. NVDA — “The Genius Inventor”</h3><p><strong>Role</strong>: Cutting-edge innovation</p><p><strong>Domain</strong>: AI workshops and chip forges</p><p><strong>Backstory</strong>: Once a humble tinkerer, NVDA unlocked ancient runes of Artificial Intelligence and became the most powerful creator in the land.</p><h4 class="mt-4 text-brown-700">Personality</h4><p>Visionary, hyperfocused, brilliant. But can be dramatic and volatile.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Leader of the AI revolution</li><li>Monster growth potential</li><li>Defines the future</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Very sensitive to fear</li><li>Overconfidence can cause wild swings</li></ul><blockquote class="mt-4">“The future bends to my algorithms, my king.”</blockquote></div>'
+        ],
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🧱 5. MSFT — “The King’s Architect”</h3><p><strong>Role</strong>: Infrastructure, cloud towers, productivity spells</p><p><strong>Domain</strong>: Every town’s work, communication, and computing</p><p><strong>Backstory</strong>: A master builder who oversees the kingdom’s structure — from education halls to cloud citadels.</p><h4 class="mt-4 text-brown-700">Personality</h4><p>Reliable, intelligent, constant. A wise counselor.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Cloud dominance</li><li>Stability + growth</li><li>Rarely fails</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Expensive magic</li><li>Slow during tech revolutions</li></ul><blockquote class="mt-4">“I keep the kingdom running while others chase glory.”</blockquote></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🎭 Your Council of Core Heroes Is Assembled</h3><p>Together, they form your growth engine — the part of your portfolio that builds wealth over decades.</p><p class="mt-4">Now, you choose the next chapter:</p></div>'
+        ],
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">📜 Choose Act II</h3><ul class="list-disc pl-5"><li><strong>(A) The Dividend Lords</strong> — SCHD, SDY, O, VNQ</li><li><strong>(B) The Battle Clans of Cyclicals</strong> — XLE, XLB, XHB, XME</li><li><strong>(C) The Mysterious International Nomads</strong> — VXUS</li><li><strong>(D) The Ancient Metal Guardians</strong> — IAU + SLV</li></ul><p class="mt-4 text-stone-700 text-sm">Selections coming soon.</p></div>',
+          '<div class="h-full flex items-center justify-center p-6"><p class="text-stone-700">To be continued…</p></div>'
+        ],
+        // ACT II — INTRO
+        [
+          '<div class="p-6"><p class="text-stone-700">Excellent — Act II: The Dividend Lords begins.</p><p class="mt-4">These four characters are the income engine of your portfolio, each with a different style of paying you.</p><p class="mt-4">I’ll introduce each one AND tell you:</p><ul class="list-disc pl-5"><li>How often they pay</li><li>How reliable the payments are</li><li>How much dividends have grown over time</li><li>Why they exist in your portfolio</li><li>What makes each one historically powerful</li></ul><p class="mt-4">Let’s begin…</p></div>',
+          '<div class="p-6"><hr><h3 class="text-xl font-serif mt-4">🏰 ACT II — THE DIVIDEND LORDS OF THE KINGDOM</h3><p class="mt-2">These are the nobles who send you coin every quarter (or month). They don’t chase glory — they build generational wealth quietly.</p><hr class="mt-4"></div>'
+        ],
+        // SCHD
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">👑 1. SCHD — “The Noble Duke of Consistent Wealth”</h3><p><strong>Full Name</strong>: Schwab U.S. Dividend Equity ETF</p><p><strong>Payout Frequency</strong>: Quarterly</p><p><strong>Historical Dividend Growth</strong>: ~12–15% per year over the last decade</p><p><strong>Yield</strong>: Typically 3.3–3.7%</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">Backstory</h4><p>SCHD is a sophisticated noble from the House of Quality.</p><p>He demands:</p><ul class="list-disc pl-5"><li>strong balance sheets</li><li>reliable cash flow</li><li>10+ years of paying dividends</li><li>companies with high return on equity</li></ul><p>He doesn’t tolerate weaklings.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>One of the best dividend-growth ETFs ever created</li><li>High-quality companies</li><li>Strong long-term dividend increases</li><li>Historically outperforms many growth funds</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Can lag during pure tech booms</li><li>Very rules-based (no flexibility)</li></ul><blockquote class="mt-4">“My liege, I bring reliable coin from the most disciplined houses in the realm.”</blockquote></div>'
+        ],
+        // SDY
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">⚖️ 2. SDY — “The Lord of the Aristocracy”</h3><p><strong>Full Name</strong>: S&amp;P Dividend Aristocrats ETF</p><p><strong>Payout Frequency</strong>: Quarterly</p><p><strong>Historical Dividend Growth</strong>: ~7–10% per year</p><p><strong>Yield</strong>: 2.8–3.1%</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">Backstory</h4><p>SDY is the keeper of tradition. He only recruits companies that have raised dividends for 20–25 consecutive years.</p><p>He is older, more conservative, and values reputation above all.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Ultra-reliable companies</li><li>Stability during downturns</li><li>Dividend consistency through recessions</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Slower dividend growth</li><li>Holds more old-school sectors (industrials, utilities, etc.)</li></ul><blockquote class="mt-4">“Only those who have never failed their people may serve under my banner.”</blockquote></div>'
+        ],
+        // O
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🏙️ 3. O — “The Landlord Who Pays Monthly Rent”</h3><p><strong>Full Name</strong>: Realty Income Corp</p><p><strong>Payout Frequency</strong>: Monthly (legendary)</p><p><strong>Historical Dividend Growth</strong>: ~3–5% per year</p><p><strong>Yield</strong>: 4.5–5.5%</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">Backstory</h4><p>O is a friendly but powerful landlord who owns:</p><ul class="list-disc pl-5"><li>grocery stores</li><li>Dollar Generals</li><li>pharmacies</li><li>warehouses</li><li>gyms</li><li>FedEx locations</li></ul><p>Tenants sign long leases (10–20 years), so he sends you monthly rent checks.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Pays you every month</li><li>Real estate exposure without owning property</li><li>Extremely reliable</li><li>Long history of stable income</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Sensitive to interest rates</li><li>Slower growth compared to SCHD</li></ul><blockquote class="mt-4">“My king, your rent has arrived, as it has every month since 1994.”</blockquote></div>'
+        ],
+        // VNQ
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🏢 4. VNQ — “The High Tower Consortium”</h3><p><strong>Full Name</strong>: Vanguard Real Estate ETF</p><p><strong>Payout Frequency</strong>: Quarterly</p><p><strong>Historical Dividend Growth</strong>: ~2–4% per year</p><p><strong>Yield</strong>: 3.5–4.5%</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">Backstory</h4><p>VNQ oversees the entire realm of real estate:</p><ul class="list-disc pl-5"><li>apartments</li><li>office towers</li><li>data centers</li><li>storage facilities</li><li>cell towers</li><li>senior housing</li></ul><p>An empire of buildings paying rent upward.</p><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Massive reach</li><li>Real estate diversification</li><li>Often performs well when rates fall</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Sensitive to interest rate changes</li><li>Very cyclical</li></ul><blockquote class="mt-4">“I command the great towers and estates of the land. Their rents flow to you.”</blockquote></div>'
+        ],
+        // ACT III — THE CYCLICAL BATTLE CLANS (INTRO)
+        [
+          '<div class="p-6"><p>ACT III — THE CYCLICAL BATTLE CLANS</p><p class="mt-3 text-stone-700">These are your fighters who rise and fall depending on the economy, commodities, and housing market. They are not calm like VTI or disciplined like SCHD. They are warriors forged by boom and bust.</p><p class="mt-4">You hold four clans:</p><ul class="list-disc pl-5"><li>XLE — The Energy Clan</li><li>XLB — The Materials Clan</li><li>XHB — The Builders</li><li>XME — The Miners &amp; Metalworkers</li></ul></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">Let’s meet them.</h3><hr class="mt-4"></div>'
+        ],
+        // XLE
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🔥 1. XLE — “The Energy Clan: Lords of Oil &amp; Fire”</h3><p><strong>Domain</strong>: Oil fields, refineries, pipelines</p><p><strong>Role</strong>: Power, fuel, cash flow</p><p><strong>Strength</strong>: Thrives when oil rises</p><p><strong>Weakness</strong>: Falls hard when oil drops</p><p><strong>Dividend</strong>: Solid, typically 3–4%</p><p class="mt-3">These warriors fight when the world needs power — and rest when demand collapses.</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🛡️ Top Companies (Your Named Warriors)</h4><p>The Energy Clan is basically led by:</p><p><strong>Exxon Mobil (XOM)</strong> — “The Titan of Black Gold”<br><span class="text-stone-700">Massive, slow, reliable, huge cash flow.</span></p><p class="mt-2"><strong>Chevron (CVX)</strong> — “The Western Warlord”<br><span class="text-stone-700">Similar to XOM but slightly more defensive.</span></p><p class="mt-2"><strong>EOG Resources</strong> — “The Eagle of Shale”<br><span class="text-stone-700">Top U.S. oil &amp; gas driller.</span></p><p class="mt-2"><strong>ConocoPhillips (COP)</strong> — “The Arctic Hunter”<br><span class="text-stone-700">More volatile but powerful.</span></p><p class="mt-2"><strong>Schlumberger (SLB)</strong> — “The Oilfield Sorcerer”<br><span class="text-stone-700">Provides the technology and services that keep the oil kingdom alive.</span></p><h4 class="mt-4 text-brown-700">Why XLE Is In Your Portfolio</h4><ul class="list-disc pl-5"><li>Hedge against inflation</li><li>Cash-flow warrior</li><li>Often surges during world events</li><li>Dividend strength</li></ul></div>'
+        ],
+        // XLB
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🧱 2. XLB — “The Materials Clan: Steel, Chemicals, &amp; Earth”</h3><p><strong>Domain</strong>: Metals, chemicals, lumber, cement</p><p><strong>Role</strong>: Foundation of every economic boom</p><p><strong>Strength</strong>: Thrives in expansions</p><p><strong>Weakness</strong>: Struggles in recessions</p><p><strong>Dividend</strong>: Moderate</p><p class="mt-3">The Materials Clan builds the bones of civilization.</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🛡️ Top Companies (The Named Warriors)</h4><p><strong>Linde (LIN)</strong> — “The Gas Alchemist”<br><span class="text-stone-700">World’s largest industrial gas company.</span></p><p class="mt-2"><strong>Sherwin-Williams (SHW)</strong> — “The Paint Baron”<br><span class="text-stone-700">One of the strongest chemical/paint kings on Earth.</span></p><p class="mt-2"><strong>Newmont Mining</strong> — “The Gold Digger of the West”<br><span class="text-stone-700">Major gold mining force.</span></p><p class="mt-2"><strong>Freeport-McMoRan (FCX)</strong> — “The Copper King”<br><span class="text-stone-700">Copper = critical for EVs, batteries, electronics.</span></p><p class="mt-2"><strong>Nucor (NUE)</strong> — “The Steel Hammer”<br><span class="text-stone-700">America’s strongest steel maker.</span></p><h4 class="mt-4 text-brown-700">Why XLB Is In Your Portfolio</h4><ul class="list-disc pl-5"><li>Materials rise in strong economies</li><li>Commodity exposure</li><li>Inflation hedge</li><li>Construction, manufacturing, EV growth all benefit</li></ul></div>'
+        ],
+        // XHB
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🏗️ 3. XHB — “The Builders: Masters of Houses &amp; Hammers”</h3><p><strong>Domain</strong>: Homebuilders, housing suppliers</p><p><strong>Role</strong>: Growth tied to real estate and construction</p><p><strong>Strength</strong>: Thrives when mortgage rates fall</p><p><strong>Weakness</strong>: Suffers when borrowing gets expensive</p><p><strong>Dividend</strong>: Low, but strong growth potential</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🛡️ Top Companies (The Named Builders)</h4><p><strong>D.R. Horton (DHI)</strong> — “The House Monarch”<br><span class="text-stone-700">Largest homebuilder in America.</span></p><p class="mt-2"><strong>Lennar (LEN)</strong> — “The Subdivision Strategist”<br><span class="text-stone-700">Major nationwide builder.</span></p><p class="mt-2"><strong>Home Depot (HD)</strong> — “The Supply King”<br><span class="text-stone-700">Powers renovations and construction.</span></p><p class="mt-2"><strong>Lowe’s (LOW)</strong> — “The Workshop Master”<br><span class="text-stone-700">Another massive home improvement general.</span></p><p class="mt-2"><strong>PulteGroup (PHM)</strong> — “The Residential Commander”<br><span class="text-stone-700">Strong in suburban markets.</span></p><h4 class="mt-4 text-brown-700">Why XHB Is In Your Portfolio</h4><ul class="list-disc pl-5"><li>Benefits massively from lower rates</li><li>Strong housing demand in the US</li><li>Homebuilders often outperform tech during housing booms</li><li>Good diversification</li></ul></div>'
+        ],
+        // XME
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">⛏️ 4. XME — “The Miners &amp; Metalworkers: Forgers of the Kingdom”</h3><p><strong>Domain</strong>: Steel, copper, aluminum, rare earths</p><p><strong>Role</strong>: High-risk, high-power cyclical fighters</p><p><strong>Strength</strong>: Explodes upward in commodity booms</p><p><strong>Weakness</strong>: Volatile during downturns</p><p><strong>Dividend</strong>: Low, but HUGE swings</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🛡️ Top Companies (Metal Champions)</h4><p><strong>Alcoa (AA)</strong> — “The Aluminum Giant”<br><span class="text-stone-700">Aluminum = planes, cars, cans, infrastructure.</span></p><p class="mt-2"><strong>Cleveland-Cliffs (CLF)</strong> — “The Ironclad Warrior”<br><span class="text-stone-700">Big steel producer for autos &amp; industry.</span></p><p class="mt-2"><strong>Steel Dynamics (STLD)</strong> — “The Steel Smith”<br><span class="text-stone-700">Strong U.S. steel maker.</span></p><p class="mt-2"><strong>Southern Copper (SCCO)</strong> — “The Copper Emperor”<br><span class="text-stone-700">One of the world’s biggest copper suppliers.</span></p><p class="mt-2"><strong>MP Materials</strong> — “The Rare Earth Ranger”<br><span class="text-stone-700">Critical minerals for EVs, magnets, defense.</span></p><h4 class="mt-4 text-brown-700">Why XME Is In Your Portfolio</h4><ul class="list-disc pl-5"><li>Pure exposure to raw materials</li><li>Big upside potential</li><li>Hedge against inflation</li><li>Plays well with energy and infrastructure spending</li></ul></div>'
+        ],
+        // ACT III SUMMARY
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🎯 ACT III SUMMARY</h3><p class="mt-2">Energy, materials, housing, and miners are your cyclical warriors. They surge with growth, rates falling, and commodity booms — and they rest during slowdowns. Used wisely, they balance your core and dividend heroes with tactical power.</p></div>',
+          '<div class="h-full flex items-center justify-center p-6"><p class="text-stone-700">To be continued…</p></div>'
+        ],
+        // ACT IV — THE INTERNATIONAL NOMAD (INTRO + ROLES)
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">ACT IV — THE INTERNATIONAL NOMAD</h3><p class="mt-2"><strong>VXUS</strong> — “The Wandering Emissary of Distant Kingdoms”</p><p class="mt-3">You only hold ONE international ETF, but it represents over 7,000 companies across the world. It is your portfolio’s ambassador to every land outside the United States.</p><p class="mt-3">Let’s give VXUS the full story treatment.</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">Role → Description</h4><ul class="list-disc pl-5"><li><strong>🛡️ Risk Shield</strong> — Different cycles than U.S. stocks</li><li><strong>🌾 Income</strong> — Decent dividends</li><li><strong>🧳 Global Reach</strong> — Gives you ownership of worldwide companies</li><li><strong>🔄 Long-Term Rebalance</strong> — Helps keep your portfolio balanced over decades</li></ul></div>'
+        ],
+        // VXUS — DETAILS
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🧳 VXUS — The Wanderer Across 47 Kingdoms</h3><p><strong>Full Name</strong>: Vanguard Total International Stock Index Fund</p><p><strong>Domains</strong>: Europe, Asia, Emerging Markets, Canada, Australia</p><p><strong>Companies Represented</strong>: ~7,500</p><p><strong>Dividend Payout</strong>: Quarterly</p><p><strong>Dividend Yield</strong>: ~2.8%</p><p><strong>Role</strong>: Global diversification</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🎭 Personality</h4><p>VXUS is an explorer — worldly, seasoned, cautious. He has seen wars, trade routes, ancient cities, and bustling metropolises.</p><p>He isn’t fast like NVDA. He isn’t steady like SCHD.</p><p>But he provides something none of your U.S. characters can: <strong>Exposure to the entire world</strong>.</p></div>'
+        ],
+        // VXUS — TOP 10
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🗺️ Top 10 Warriors in VXUS (The Named Leaders)</h4><p class="text-stone-700">These are the strongest generals in his global army:</p><ul class="list-disc pl-5"><li>🇯🇵 <strong>Toyota</strong> — “The Automotive Emperor”<br><span class="text-stone-700">World’s largest carmaker, powerhouse of manufacturing.</span></li><li>🇹🇼 <strong>Taiwan Semiconductor (TSMC)</strong> — “The Chipmaker of the East”<br><span class="text-stone-700">Makes the world’s most advanced semiconductors.</span></li><li>🇬🇧 <strong>Nestlé</strong> — “The Food Baron”<br><span class="text-stone-700">Largest food and beverage empire on Earth.</span></li><li>🇰🇷 <strong>Samsung Electronics</strong> — “The Gadget Forge”<br><span class="text-stone-700">A giant in chips, phones, TVs, appliances.</span></li><li>🇳🇱 <strong>ASML (Netherlands)</strong> — “The Lithography Sorcerer”<br><span class="text-stone-700">Makes the machines that make advanced computer chips.</span></li></ul></div>',
+          '<div class="p-6"><ul class="list-disc pl-5 mt-0"><li>🇨🇳 <strong>Tencent</strong> — “The Digital Dynasty”<br><span class="text-stone-700">Gaming, social media, payments, cloud, and more.</span></li><li>🇬🇧 <strong>Shell</strong> — “The Global Oil Duke”<br><span class="text-stone-700">International energy titan.</span></li><li>🇯🇵 <strong>Sony</strong> — “The Media Samurai”<br><span class="text-stone-700">PlayStation, films, music, imaging.</span></li><li>🇨🇳 <strong>Alibaba</strong> — “The Dragon Merchant of Ecommerce”<br><span class="text-stone-700">Massive ecommerce &amp; cloud presence.</span></li><li>🇨🇭 <strong>Roche</strong> — “The Swiss Healer”<br><span class="text-stone-700">Major pharmaceutical giant.</span></li></ul></div>'
+        ],
+        // VXUS — VOICE AND IMPORTANCE
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">💬 How VXUS Speaks in Story Mode</h4><blockquote class="mt-2">“My king, I bring the fortunes and fates of all distant kingdoms. Where your U.S. armies fail, I may yet find victory.”</blockquote></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">⚖️ Why VXUS is Important in Your Portfolio</h4><ol class="list-decimal pl-5"><li><strong>Not all countries move together</strong><br><span class="text-stone-700">When the U.S. dips → sometimes Europe or Asia rises. VXUS spreads risk.</span></li><li class="mt-2"><strong>Some of the best companies aren’t American</strong><br><ul class="list-disc pl-5"><li>TSMC (#1 chipmaker)</li><li>ASML (#1 chipmaking machine supplier)</li><li>Toyota</li><li>Nestlé</li><li>Samsung</li></ul><span class="text-stone-700">You get exposure to these giants with one soldier.</span></li><li class="mt-2"><strong>Emerging markets = future growth</strong><br><span class="text-stone-700">India, Brazil, Indonesia, Vietnam — fast populations, growing economies.</span></li><li class="mt-2"><strong>Currency diversification</strong><br><span class="text-stone-700">Gold isn’t your only hedge. VXUS gives you exposure to foreign currencies.</span></li></ol></div>'
+        ],
+        // VXUS — WEAKNESSES + ROLE
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">📉 Weaknesses of VXUS</h4><ol class="list-decimal pl-5"><li><strong>International stocks have lagged the U.S. for a decade</strong><br><span class="text-stone-700">The U.S. has been unusually dominant.</span></li><li class="mt-2"><strong>Political &amp; currency risk</strong><br><span class="text-stone-700">Other nations have instability or currency swings.</span></li><li class="mt-2"><strong>Lower innovation concentration</strong><br><span class="text-stone-700">Most global innovation today is U.S.-led (AI, cloud, software).</span></li></ol></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🧭 VXUS: The Portfolio Role</h3><p class="mt-2">A steady global emissary that balances your U.S. core. Not a sprinter — but a vital long-distance traveler who keeps your map complete.</p></div>'
+        ],
+        // ACT V — THE ANCIENT METAL GUARDIANS (INTRO)
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">ACT V — THE ANCIENT METAL GUARDIANS</h3><p class="mt-3">Deep beneath the mountains, older than kingdoms, older than written history, stand two eternal guardians: <strong>Gold</strong> and <strong>Silver</strong>.</p><p class="mt-3">They do not grow like tech. They do not pay dividends like SCHD. They simply endure.</p><p class="mt-3">Their purpose is different from all other characters. Let’s meet them.</p></div>',
+          '<div class="h-full flex items-center justify-center p-6"><p class="text-stone-700">⸻</p></div>'
+        ],
+        // IAU — GOLD
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🛡️ 1. IAU — “The Golden Sentinel”</h3><p><strong>Full Name</strong>: iShares Gold Trust</p><p><strong>Type</strong>: Physical gold</p><p><strong>Dividend</strong>: None</p><p><strong>Role</strong>: Protection, preservation, store of value</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🕰️ Backstory</h4><p>Gold is the oldest currency of humankind. Empires rise. Empires fall. Gold remains.</p><p class="mt-2"><em>“The Immortal Guardian who watches over the realm, unmoved by chaos, humbled by time.”</em></p><h4 class="mt-4 text-brown-700">🧬 Personality</h4><ul class="list-disc pl-5"><li>Calm</li><li>Quiet</li><li>Stoic</li><li>Utterly unimpressed by drama or hype</li></ul><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Protects your wealth during crises</li><li>Stores value across centuries</li><li>Often rises when the U.S. dollar falls</li><li>Helps when stocks crash</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>No growth</li><li>No dividends</li><li>Can stagnate for long periods</li></ul><p class="mt-3 text-stone-700">VXUS is international; IAU is beyond nations.</p></div>'
+        ],
+        // SLV — SILVER
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">⚔️ 2. SLV — “The Silver Ranger”</h3><p><strong>Full Name</strong>: iShares Silver Trust</p><p><strong>Type</strong>: Physical silver</p><p><strong>Dividend</strong>: None</p><p><strong>Role</strong>: Volatility, industrial metal, long-term hedge</p></div>',
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🕰️ Backstory</h4><p>Silver is the metal of warriors, blacksmiths, inventors, industrial forges.</p><p>Unlike gold, silver has many uses: electronics, solar panels, batteries, tech components.</p><p>It is both an ancient relic and a modern necessity.</p><h4 class="mt-4 text-brown-700">Personality</h4><ul class="list-disc pl-5"><li>Energetic</li><li>Volatile</li><li>Emotional</li><li>Sometimes brilliant, sometimes reckless</li></ul><h4 class="mt-4 text-brown-700">Strengths</h4><ul class="list-disc pl-5"><li>Can rise faster than gold</li><li>Plays well with industrial demand</li><li>Hedge against currency decline</li></ul><h4 class="mt-4 text-brown-700">Weaknesses</h4><ul class="list-disc pl-5"><li>Very volatile</li><li>Easily manipulated</li><li>Does not follow predictable cycles</li></ul></div>'
+        ],
+        // GOLD vs SILVER COMPARISON
+        [
+          '<div class="p-6"><h3 class="text-lg font-serif mt-0">🧙‍♂️ GOLD vs SILVER: The Ancient Sibling Rivalry</h3><table class="table mt-2"><thead><tr><th>Trait</th><th>Gold (IAU)</th><th>Silver (SLV)</th></tr></thead><tbody><tr><td>Age</td><td>Oldest asset known</td><td>Nearly as old</td></tr><tr><td>Personality</td><td>Stoic</td><td>Volatile</td></tr><tr><td>Purpose</td><td>Wealth protection</td><td>Upside potential</td></tr><tr><td>Behavior in crashes</td><td>Often up</td><td>Mixed</td></tr><tr><td>Behavior in inflation</td><td>Strong</td><td>Very strong</td></tr><tr><td>Industrial use</td><td>Low</td><td>High</td></tr><tr><td>Risk</td><td>Low</td><td>High</td></tr></tbody></table></div>',
+          '<div class="p-6"><p><strong>Gold = defense</strong></p><p class="mt-2"><strong>Silver = offense</strong>, but risky</p><p class="mt-3">Together, they form your <strong>Hedge Wall</strong> — protection against extreme events.</p></div>'
+        ],
+        // ACT V COMPLETE + SIDE QUEST INTRO
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">ACT V COMPLETE</h3><p class="mt-2">You’ve now met every character in your portfolio.</p><p>It’s time for the Side Quest — the greatest reveal of this entire Story Mode:</p><h4 class="mt-4 text-brown-700">⸻ SIDE QUEST — THE FULL WAR MAP OF YOUR PORTFOLIO</h4><p class="mt-2">Below is your entire portfolio re-imagined as a fantasy military kingdom, showing how every ETF/stock serves in your army.</p><p class="mt-2">This map shows: the Heroes (tech &amp; core growth), the Lords (dividends), the Clans (cyclicals), the Wanderer (international), the Guardians (metals).</p></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🏰 ALEX’S AHOY CAPITAL — WAR MAP</h3></div>'
+        ],
+        // WAR MAP — I. GREAT HALL OF HEROES
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🟦 I. The Great Hall of Heroes (Your Growth Engine)</h4><table class="table mt-2"><thead><tr><th>Character</th><th>Type</th><th>Role</th></tr></thead><tbody><tr><td>VTI</td><td>Warrior King</td><td>Entire U.S. economy</td></tr><tr><td>FXAIX</td><td>Elite Knight</td><td>The top 500 houses</td></tr><tr><td>QQQM / QQQ</td><td>Twin Sorcerers</td><td>Innovation &amp; tech magic</td></tr><tr><td>NVDA</td><td>Genius Inventor</td><td>AI, chips, the future</td></tr><tr><td>MSFT</td><td>The Architect</td><td>Infrastructure, cloud</td></tr></tbody></table></div>',
+          '<div class="p-6"><h4 class="mt-0">Purpose</h4><p class="mt-2">Build wealth, grow the realm, lead the kingdom forward.</p></div>'
+        ],
+        // WAR MAP — II. DIVIDEND KEEP
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🟧 II. The Dividend Keep (Income Citadel)</h4><table class="table mt-2"><thead><tr><th>Character</th><th>Title</th><th>Role</th></tr></thead><tbody><tr><td>SCHD</td><td>Duke of Quality</td><td>Best dividend-growth</td></tr><tr><td>SDY</td><td>Aristocrat Lord</td><td>25-year dividend streak</td></tr><tr><td>O</td><td>Monthly Landlord</td><td>Rent every month</td></tr><tr><td>VNQ</td><td>High Tower Consortium</td><td>Real estate empire</td></tr></tbody></table></div>',
+          '<div class="p-6"><h4 class="mt-0">Purpose</h4><p class="mt-2">Provide coin, stability, and endurance.</p></div>'
+        ],
+        // WAR MAP — III. FRONTIER CLANS
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🟥 III. The Frontier Clans (Cyclical Warriors)</h4><table class="table mt-2"><thead><tr><th>ETF</th><th>Clan</th><th>Role</th></tr></thead><tbody><tr><td>XLE</td><td>Energy</td><td>Oil, power, crisis strength</td></tr><tr><td>XLB</td><td>Materials</td><td>Steel, chemicals, building blocks</td></tr><tr><td>XHB</td><td>Builders</td><td>Housing, construction</td></tr><tr><td>XME</td><td>Miners</td><td>Metals, rare earths</td></tr></tbody></table></div>',
+          '<div class="p-6"><h4 class="mt-0">Purpose</h4><p class="mt-2">Fight specific battles — inflation, construction, commodity cycles.</p></div>'
+        ],
+        // WAR MAP — IV. WORLD WANDERER
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🟩 IV. The World Wanderer</h4><table class="table mt-2"><thead><tr><th>Character</th><th>Title</th><th>Region</th></tr></thead><tbody><tr><td>VXUS</td><td>Global Emissary</td><td>Europe, Asia, EM</td></tr></tbody></table></div>',
+          '<div class="p-6"><h4 class="mt-0">Purpose</h4><p class="mt-2">Diversify the kingdom outside its borders.</p></div>'
+        ],
+        // WAR MAP — V. ANCIENT GUARDIANS
+        [
+          '<div class="p-6"><h4 class="mt-0 text-brown-700">🟫 V. The Ancient Guardians</h4><table class="table mt-2"><thead><tr><th>Character</th><th>Title</th><th>Metal</th></tr></thead><tbody><tr><td>IAU</td><td>Golden Sentinel</td><td>Defense, stability</td></tr><tr><td>SLV</td><td>Silver Ranger</td><td>Volatile offense</td></tr></tbody></table></div>',
+          '<div class="p-6"><h4 class="mt-0">Purpose</h4><p class="mt-2">Protection + upside during turmoil.</p></div>'
+        ],
+        // GRAND BALANCE + NEXT STEPS
+        [
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🧠 THE GRAND BALANCE OF YOUR ARMY</h3><p class="mt-2">Your portfolio isn’t random — it has layers:</p><ul class="list-disc pl-5"><li>⚔️ Growth = your army’s frontline</li><li>🏰 Dividends = your treasury</li><li>🔥 Cyclicals = your specialty fighters</li><li>🌍 International = your scouts</li><li>🛡️ Metals = your ancient protectors</li></ul><p class="mt-3">This is a well-balanced setup for long-term building + income.</p></div>',
+          '<div class="p-6"><h3 class="text-xl font-serif mt-0">🎯 Choose your next step</h3><ol class="list-decimal pl-5"><li><strong>The “Battle Drills”</strong> — learn how characters react to real battles (easy scenarios)</li><li class="mt-2"><strong>Character Level-Ups</strong> — deep-dive questions for each ETF to master them</li><li class="mt-2"><strong>Weekly Slice Strategy Training</strong> — how your army grows each week</li><li class="mt-2"><strong>Build Your Own Index</strong> — create the Ahoy Index from favorites</li><li class="mt-2"><strong>Portfolio Lore Book</strong> — a printable storybook of all characters</li></ol></div>'
+        ]
+      ];
+
+      // Act boundaries (index of the first spread of each Act)
+      // Act I, II, III, IV, V
+      var actStarts = [0, 5, 10, 16, 21];
+
+      function currentActIndex() {
+        var idx = 0;
+        for (var a = 0; a < actStarts.length; a++) {
+          if (i >= actStarts[a]) idx = a;
+        }
+        return idx;
+      }
+
+      function render() {
+        if (!leftPage || !rightPage || !indicator) return;
+        var total = spreads.length;
+        var spreadIndex = Math.max(0, Math.min(i, total - 1));
+        leftPage.innerHTML = spreads[spreadIndex][0];
+        rightPage.innerHTML = spreads[spreadIndex][1];
+        indicator.textContent = 'Spread ' + (spreadIndex + 1) + ' / ' + total;
+        if (prevBtn) prevBtn.disabled = spreadIndex === 0;
+        if (nextBtn) nextBtn.disabled = spreadIndex === total - 1;
+        var actIdx = currentActIndex();
+        if (prevActBtn) prevActBtn.disabled = actIdx === 0;
+        if (nextActBtn) nextActBtn.disabled = actIdx === actStarts.length - 1;
+      }
+
+      function openOverlay() {
+        if (!overlay) return;
+        overlay.classList.remove('hidden');
+        active = true;
+        i = 0;
+        render();
+      }
+
+      function closeOverlay() {
+        if (!overlay) return;
+        overlay.classList.add('hidden');
+        active = false;
+      }
+
+      if (startBtn) startBtn.addEventListener('click', openOverlay);
+      if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+      if (prevBtn) prevBtn.addEventListener('click', function(){ i = Math.max(0, i - 1); render(); });
+      if (nextBtn) nextBtn.addEventListener('click', function(){ i = Math.min(spreads.length - 1, i + 1); render(); });
+      if (prevActBtn) prevActBtn.addEventListener('click', function(){
+        var actIdx = currentActIndex();
+        if (actIdx > 0) {
+          i = actStarts[actIdx - 1];
+          render();
+        }
+      });
+      if (nextActBtn) nextActBtn.addEventListener('click', function(){
+        var actIdx = currentActIndex();
+        if (actIdx < actStarts.length - 1) {
+          i = actStarts[actIdx + 1];
+          render();
+        }
+      });
+      document.addEventListener('keydown', function(e){
+        if (!active) return;
+        if (e.key === 'Escape') closeOverlay();
+        if (e.key === 'ArrowRight') { i = Math.min(spreads.length - 1, i + 1); render(); }
+        if (e.key === 'ArrowLeft') { i = Math.max(0, i - 1); render(); }
+      });
+
+      // Open from hash (#game) on homepage
+      function maybeOpenFromHash() {
+        if (location.hash === '#game') {
+          openOverlay();
+        }
+      }
+      // If already on homepage with #game, open overlay
+      maybeOpenFromHash();
+      // React to future hash changes
+      window.addEventListener('hashchange', maybeOpenFromHash);
+      // Intercept in-page clicks to #game to open without scrolling
+      document.addEventListener('click', function(e){
+        var link = e.target && e.target.closest && e.target.closest('a[href$="#game"]');
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        // Only intercept if link targets current page (index.html or current path) and has #game
+        var isSamePage = href === '#game' || href.endsWith('index.html#game') || href.endsWith('/#game');
+        if (isSamePage) {
+          e.preventDefault();
+          if (overlay && overlay.classList.contains('hidden')) {
+            openOverlay();
+          } else {
+            // Already open; no-op
+          }
+        }
+      });
     })();
   </script>
   </body>

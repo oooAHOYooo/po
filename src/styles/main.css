@@ -115,3 +115,61 @@ a:hover { border-color: var(--green-muted); }
 .table th, .table td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
 .table th { font-weight: 700; color: var(--brown-900); }
 .table caption { text-align: left; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-700); }
+
+/* Book pages */
+.book-page {
+  background: var(--parchment-2);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  height: 100%;
+  aspect-ratio: 3 / 4; /* flash-card portrait ratio */
+  overflow: auto; /* scroll long text within the page */
+}
+
+/* Cinematic overlay layout */
+:root { --book-controls-h: 72px; }
+.book-overlay {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(0,0,0,0.08), transparent 60%),
+    var(--parchment);
+}
+.book-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: var(--book-controls-h);
+  display: flex;
+  align-items: flex-start; /* flush to top */
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 1.5rem 0 1.5rem;
+}
+.book-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--book-controls-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background: rgba(242, 236, 223, 0.9); /* parchment with slight translucency */
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive: stack pages on small screens */
+@media (max-width: 900px) {
+  .book-stage {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+  .book-page {
+    height: calc((100% - 1rem) / 2);
+  }
+}
